@@ -1,0 +1,23 @@
+services:
+  beamServer:
+    image: rouhim/beammp-server
+    build:
+      context: .
+      dockerfile: Containerfile
+    ports:
+      - "30814:30814/tcp"
+      - "30814:30814/udp"
+    stdin_open: true
+    tty: true
+    environment:
+      - BEAMMP_PRIVATE
+      - BEAMMP_MAX_CARS
+      - BEAMMP_MAX_PLAYERS 
+      - BEAMMP_MAP
+      - BEAMMP_AUTH_KEY
+      - ENV
+    volumes:
+      - ./client-mods:/beammp/Resources/Client
+      - ./server-mods:/beammp/Resources/Server
+  assettoServer:
+    image: seejy/assetto-server-manager
