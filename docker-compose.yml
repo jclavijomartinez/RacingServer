@@ -1,9 +1,6 @@
 services:
   beamServer:
     image: rouhim/beammp-server
-    build:
-      context: .
-      dockerfile: Containerfile
     ports:
       - "30814:30814/tcp"
       - "30814:30814/udp"
@@ -12,7 +9,7 @@ services:
     environment:
       - BEAMMP_PRIVATE
       - BEAMMP_MAX_CARS
-      - BEAMMP_MAX_PLAYERS 
+      - BEAMMP_MAX_PLAYERS
       - BEAMMP_MAP
       - BEAMMP_AUTH_KEY
       - ENV
@@ -21,3 +18,16 @@ services:
       - ./server-mods:/beammp/Resources/Server
   assettoServer:
     image: seejy/assetto-server-manager
+    ports:
+      #Web
+      - "80:80"
+      # Assetto Server TCP/UDP
+      - "29600:29600"
+      - "29600:29600/udp"
+      # Assetto Server HTTP
+      - "28081:28081"
+      # Content Manager Wrapper
+      - "29700:29700"
+    volumes:
+      - ./assetto:/home/assetto/server-manager/assetto
+      - ./config.yml:/home/assetto/server-manager/config.yml
